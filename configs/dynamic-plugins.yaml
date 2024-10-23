@@ -1,6 +1,8 @@
 includes:
   - dynamic-plugins.default.yaml
-plugins: []
+plugins:
+  - package: /opt/app-root/src/local-plugins/internal-backstage-plugin-catalog-backend-module-rhaap-0.1.0.tgz
+    disabled: false
 
   # EXAMPLES:
   # loading plugin from host directory
