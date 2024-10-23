@@ -1,3 +1,4 @@
+signInPage: rhaap
 auth:
   environment: development
   providers:
@@ -7,6 +8,14 @@ auth:
     #   development:
     #     clientId: ${AUTH_GITHUB_CLIENT_ID}
     #     clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+    rhaap:
+      development:
+        host: ${RHAAP_HOST}
+        clientId: ${RHAAP_OAUTH_CLIENT_ID}
+        clientSecret: ${RHAAP_OAUTH_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUser
 
 # integrations:
 #   github:
@@ -56,6 +65,13 @@ catalog:
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
     #   rules:
     #     - allow: [Component, User, Group, Domain]
+
+    # Local example organizational data
+    - type: file
+      target: /opt/app-root/src/configs/examples/org.yaml
+      rules:
+        - allow: [ User, Group ]
+
 
 
 techdocs:
