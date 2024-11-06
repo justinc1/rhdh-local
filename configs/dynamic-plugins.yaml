@@ -3,6 +3,51 @@ includes:
 plugins:
   - package: /opt/app-root/src/local-plugins/internal-backstage-plugin-catalog-backend-module-rhaap-0.1.0.tgz
     disabled: false
+  - package: /opt/app-root/src/local-plugins/internal-backstage-plugin-scaffolder-backend-module-rhaap-0.1.0.tgz
+    disabled: false
+  - package: /opt/app-root/src/local-plugins/rh-aap-backstage-plugin-wizard-catalog-0.1.0.tgz
+    disabled: true
+    pluginConfig:
+      dynamicPlugins:
+        frontend:
+          rh-aap.backstage-plugin-wizard-catalog:
+            # appIcons:
+            #   - name: AnsibleLogo
+            #     importName: AnsibleLogo
+            dynamicRoutes:
+              - path: /wizard-catalog
+                importName: WizardCatalogPage
+                # menuItem:
+                #   icon: AnsibleLogo
+                #   text: AnsibleWizardLogo
+
+  - package: /opt/app-root/src/local-plugins/ansible-plugin-backstage-rhaap-1.1.0.tgz
+    disabled: true
+    pluginConfig:
+      dynamicPlugins:
+        frontend:
+          ansible.plugin-backstage-rhaap:
+            appIcons:
+            - importName: AnsibleLogo
+              name: AnsibleLogo
+            dynamicRoutes:
+            - importName: AnsiblePage
+              menuItem:
+                icon: AnsibleLogo
+                text: Ansible
+              path: /ansible
+  - package: /opt/app-root/src/local-plugins/ansible-plugin-scaffolder-backend-module-backstage-rhaap-1.1.0.tgz
+    disabled: true
+    pluginConfig:
+      dynamicPlugins:
+        backend:
+          ansible.plugin-scaffolder-backend-module-backstage-rhaap: null
+  - package: /opt/app-root/src/local-plugins/ansible-plugin-backstage-rhaap-backend-1.1.0.tgz
+    disabled: true
+    pluginConfig:
+      dynamicPlugins:
+        backend:
+          ansible.plugin-backstage-rhaap-backend: null
 
   # EXAMPLES:
   # loading plugin from host directory
