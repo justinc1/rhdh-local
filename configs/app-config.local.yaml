@@ -63,7 +63,8 @@ ansible:
     baseUrl: ${RHAAP_HOST}
     token: ${RHAAP_TOKEN}
     checkSSL: false
-    showCaseFolder: '../../aap-showcases/'
+    # showCaseFolder: '../../aap-showcases/'
+    showCaseFolder: '/tmp/aap-showcases/'
     schedule:
       frequency:
         seconds: 30
@@ -97,7 +98,7 @@ catalog:
       rules:
         - allow: [ Template ]
     - type: file
-      target: ../../aap-showcases/all.yaml
+      target: /tmp/aap-showcases/all.yaml
       rules:
         - allow: [ Template ]
 enableExperimentalRedirectFlow: true

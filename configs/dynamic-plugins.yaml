@@ -6,7 +6,7 @@ plugins:
   - package: /opt/app-root/src/local-plugins/internal-backstage-plugin-scaffolder-backend-module-rhaap-0.1.0.tgz
     disabled: false
   - package: /opt/app-root/src/local-plugins/rh-aap-backstage-plugin-wizard-catalog-0.1.0.tgz
-    disabled: true
+    disabled: false
     pluginConfig:
       dynamicPlugins:
         frontend:
