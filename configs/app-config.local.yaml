@@ -1,39 +1,26 @@
-signInPage: rhaap
-enableExperimentalRedirectFlow: true
-auth:
-  environment: development
-  providers:
-    guest:
-      dangerouslyAllowOutsideDevelopment: true
-    # github:
-    #   development:
-    #     clientId: ${AUTH_GITHUB_CLIENT_ID}
-    #     clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
-    rhaap:
-      development:
-        host: ${RHAAP_HOST}
-        clientId: ${RHAAP_OAUTH_CLIENT_ID}
-        clientSecret: ${RHAAP_OAUTH_CLIENT_SECRET}
-        checkSSL: false
-        signIn:
-          resolvers:
-            - resolver: usernameMatchingUser
-
-# integrations:
-#   github:
-#     - host: github.com
-#       apps:
-#         - $include: github-app-credentials.yaml
-
-app:
-  title: RHDH
-  baseUrl: ${BASE_URL}
-
+permission:
+  enabled: false
 backend:
-  listen:
-    port: 7007
   baseUrl: ${BASE_URL}
   https: true
+  listen:
+    port: 7007
+    # Uncomment the following host directive to bind to specific interfaces
+    # host: 127.0.0.1
+  csp:
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+    connect-src:
+      - "'self'"
+      - 'http:'
+      - 'https:'
+    # Plugin: Jira
+    img-src:
+      # "'self'" and 'data' are from the backstage default but must be set since img-src is overwritten
+      - "'self'"
+      - 'data:'
+      # Allow your Jira instance for @roadiehq/backstage-plugin-jira
+      - ${JIRA_URL}
   cors:
     origin: ${BASE_URL}
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
@@ -48,55 +35,69 @@ backend:
     keys:
       - secret: "development"
 
-# You can use local files from catalog-entities directory to load entities into the catalog
-catalog:
-
-  rules:
-    - allow: [Component, API, Location, Template, Domain, User, Group, System, Resource]
-
-  locations:
-    - type: file
-      target: /opt/app-root/src/configs/catalog-entities/users.yaml
-      rules:
-        - allow: [User, Group]
-    - type: file
-      target: /opt/app-root/src/configs/catalog-entities/components.yaml
-      rules:
-        - allow: [Component, System]
-    # - type: url
-    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
-    #   rules:
-    #     - allow: [Component, User, Group, Domain]
+signInPage: rhaap
+auth:
+  environment: development
   providers:
+    guest:
+      dangerouslyAllowOutsideDevelopment: true
     rhaap:
       development:
-#        baseUrl: ${RHAAP_HOST}
-#        clientId: ${RHAAP_CATALOG_OAUTH_CLIENT_ID}
-#        clientSecret: ${RHAAP_CATALOG_OAUTH_CLIENT_SECRET}
-#        user: ${RHAAP_CATALOG_USER}
-#        password: ${RHAAP_CATALOG_PASSWORD}
-        schedule:
-          frequency:
-            minutes: 1
-          timeout:
-            minutes: 1
-          initialDelay:
-            seconds: 15
+        host: ${RHAAP_HOST}
+        checkSSL: false
+        clientId: ${RHAAP_OAUTH_CLIENT_ID}
+        clientSecret: ${RHAAP_OAUTH_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUser
+# Plugin: Permission
 
-techdocs:
-  generator:
-    runIn: local
-  builder: local
-  publisher: 
-    type: local
+dangerouslyAllowSignInWithoutUserInCatalog: true
+
+app:
+  title: RHDH
+  baseUrl: ${BASE_URL}
 
 ansible:
-  devSpaces:
-    baseUrl: '<DEVSPACES_URL>'
-  creatorService:
-    baseUrl: '127.0.0.1'
-    port: '8000'
   rhaap:
     baseUrl: ${RHAAP_HOST}
     token: ${RHAAP_TOKEN}
     checkSSL: false
+    showCaseFolder: '../../aap-showcases/'
+    schedule:
+      frequency:
+        seconds: 30
+      timeout:
+        seconds: 5
+  creatorService:
+    baseUrl: '127.0.0.1'
+    port: '8000'
+
+catalog:
+  stitchingStrategy:
+    immediate: true
+  orphanStrategy: delete
+  processingInterval: { seconds: 10 }
+  pollingInterval: { seconds: 1 }
+  stitchTimeout: { minutes: 1 }
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [Component, System, Group, Resource, Location, Template, API, Users]
+  providers:
+    rhaap:
+      development:
+        schedule:
+          frequency: { seconds: 30 }
+          timeout: { seconds: 3 }
+  locations:
+    - type: url
+      target: https://github.com/kcagran/catalogs/blob/main/all.yaml
+      rules:
+        - allow: [ Template ]
+    - type: file
+      target: ../../aap-showcases/all.yaml
+      rules:
+        - allow: [ Template ]
+enableExperimentalRedirectFlow: true
