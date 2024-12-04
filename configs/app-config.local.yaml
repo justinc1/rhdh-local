@@ -93,10 +93,7 @@ catalog:
           timeout: { seconds: 3 }
   locations:
     - type: url
-      # new temporal location
-      target: https://github.com/justinc1/ansible-rhdh-templates/blob/ansible-patterns/all.yaml
-      # final location
-      # target: https://github.com/ansible/ansible-rhdh-templates/blob/ansible-patterns/all.yaml
+      target: https://github.com/ansible/ansible-rhdh-templates/blob/main/seed.yaml
       rules:
         - allow: [ Template ]
     - type: file
