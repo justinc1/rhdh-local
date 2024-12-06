@@ -20,3 +20,5 @@ plugins:
                 # menuItem:
                 #   icon: AnsibleLogo
                 #   text: AnsibleWizardLogo
+              - path: /create-task/:namespace/:name
+                importName: CreateTaskPage
