@@ -11,14 +11,6 @@ plugins:
       dynamicPlugins:
         frontend:
           rh-aap.backstage-plugin-wizard-catalog:
-            # appIcons:
-            #   - name: AnsibleLogo
-            #     importName: AnsibleLogo
             dynamicRoutes:
-              - path: /wizard-catalog
-                importName: WizardCatalogPage
-                # menuItem:
-                #   icon: AnsibleLogo
-                #   text: AnsibleWizardLogo
-              - path: /create-task/:namespace/:name
-                importName: CreateTaskPage
+              - importName: WizardCatalogPage
+                path: /wizard/*
