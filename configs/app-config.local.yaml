@@ -63,7 +63,9 @@ ansible:
     baseUrl: ${RHAAP_HOST}
     token: ${RHAAP_TOKEN}
     checkSSL: false
-    showCaseFolder: '/tmp/aap-showcases/'
+    showCaseLocation:
+      type: file
+      target: '/tmp/aap-showcases/'
     schedule:
       frequency:
         seconds: 30
@@ -84,20 +86,21 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, Group, Resource, Location, Template, API, Users]
-  providers:
-    rhaap:
-      development:
-        schedule:
-          frequency: { seconds: 30 }
-          timeout: { seconds: 3 }
+    - allow:
+        [Component, System, Group, Resource, Location, Template, API, Users]
   locations:
     - type: url
       target: https://github.com/ansible/ansible-rhdh-templates/blob/main/seed.yaml
       rules:
-        - allow: [ Template ]
+        - allow: [Template]
     - type: file
       target: /tmp/aap-showcases/all.yaml
       rules:
-        - allow: [ Template ]
+        - allow: [Template]
+  providers:
+    rhaap:
+      development:
+        schedule:
+          frequency: { minutes: 1 }
+          timeout: { seconds: 5 }
 enableExperimentalRedirectFlow: true
