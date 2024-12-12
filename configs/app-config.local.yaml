@@ -68,7 +68,7 @@ ansible:
       target: '/tmp/aap-showcases/'
     schedule:
       frequency:
-        seconds: 30
+        seconds: 120
       timeout:
         seconds: 5
   creatorService:
@@ -101,6 +101,6 @@ catalog:
     rhaap:
       development:
         schedule:
-          frequency: { minutes: 1 }
+          frequency: { minutes: 5 }
           timeout: { seconds: 5 }
 enableExperimentalRedirectFlow: true
