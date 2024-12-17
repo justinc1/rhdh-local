@@ -1,16 +1,16 @@
 includes:
   - dynamic-plugins.default.yaml
 plugins:
-  - package: /opt/app-root/src/local-plugins/internal-backstage-plugin-catalog-backend-module-rhaap-0.1.0.tgz
+  - package: /opt/app-root/src/local-plugins/ansible-backstage-plugin-catalog-backend-module-rhaap-0.1.0.tgz
     disabled: false
-  - package: /opt/app-root/src/local-plugins/internal-backstage-plugin-scaffolder-backend-module-rhaap-0.1.0.tgz
+  - package: /opt/app-root/src/local-plugins/ansible-plugin-scaffolder-backend-module-backstage-rhaap-1.1.0.tgz
     disabled: false
-  - package: /opt/app-root/src/local-plugins/rh-aap-backstage-plugin-wizard-catalog-0.1.0.tgz
+  - package: /opt/app-root/src/local-plugins/ansible-backstage-plugin-wizard-catalog-0.1.0.tgz
     disabled: false
     pluginConfig:
       dynamicPlugins:
         frontend:
-          rh-aap.backstage-plugin-wizard-catalog:
+          ansible.backstage-plugin-wizard-catalog:
             dynamicRoutes:
               - importName: WizardCatalogPage
                 path: /wizard/*
