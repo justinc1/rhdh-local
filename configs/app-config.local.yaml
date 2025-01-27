@@ -2,7 +2,7 @@ permission:
   enabled: false
 backend:
   baseUrl: ${BASE_URL}
-  https: true
+  # https: true
   listen:
     port: 7007
     # Uncomment the following host directive to bind to specific interfaces
