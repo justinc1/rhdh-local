@@ -142,7 +142,7 @@ catalog:
     immediate: true
   orphanStrategy: delete
   processingInterval: { seconds: 10 }
-  pollingInterval: { seconds: 1 }
+  pollingInterval: { seconds: 180 }
   stitchTimeout: { minutes: 1 }
   import:
     entityFilename: catalog-info.yaml
